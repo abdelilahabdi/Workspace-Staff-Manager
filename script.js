@@ -17,6 +17,8 @@ const photoPreviewImg = document.querySelector(".photo-preview-img");
 const inputEmail = document.querySelector(".input-email");
 const inputPhone = document.querySelector(".input-phone");
 
+ 
+
 
 
 
@@ -32,6 +34,10 @@ function setPhotoPreview(src) {
     }
 }
 
+
+
+
+
 function previewSelectedFile(file) {
     if (!file) {
         setPhotoPreview("");
@@ -44,6 +50,9 @@ function previewSelectedFile(file) {
     reader.readAsDataURL(file);
 }
 
+
+
+
 if (inputPhotoFile) {
     inputPhotoFile.addEventListener("change", function () {
         const file = inputPhotoFile.files && inputPhotoFile.files[0];
@@ -55,6 +64,9 @@ if (inputPhotoFile) {
     });
 }
 
+
+
+
 if (inputPhoto) {
     inputPhoto.addEventListener("input", function () {
         if (!inputPhotoFile || !inputPhotoFile.files || inputPhotoFile.files.length === 0) {
@@ -63,6 +75,16 @@ if (inputPhoto) {
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
 setPhotoPreview(inputPhoto ? inputPhoto.value.trim() : "");
 
 
@@ -149,6 +171,10 @@ btnaddexpe.addEventListener("click", function () {
     expeLIST.appendChild(createExperienceRow());
 });
 
+
+
+
+
 if (expeLIST) {
     expeLIST.appendChild(createExperienceRow());
 }
@@ -205,6 +231,11 @@ function resolvePhotoValue() {
     });
 }
 
+
+
+
+
+
 btnsave.addEventListener("click", async function() {
 
      const expROWS = document.querySelectorAll (".experience-row");
@@ -249,23 +280,58 @@ btnsave.addEventListener("click", async function() {
  workerCard.classList.add("worker-card");
 
   workerCard.dataset.index = workers.length - 1;
- workerCard.innerHTML = '<img src="'+ worker.photo +'" style="width:50px; height:50px; border-radius:50%;">' +
+  //  workerCard.innerHTML = '<img src="'+ worker.photo +'" style="width:50px; height:50px; border-radius:50%;">' +
+ //     '<p>' + worker.name + '</p>' +
+ //     '<p>' + worker.role + '</p>' ;
+
+
+
+
+
+ workerCard.innerHTML =
+    '<button class="remove-worker">X</button>' +
+    '<img src="' + worker.photo + '" style="width:50px; height:50px; border-radius:50%;">' +
     '<p>' + worker.name + '</p>' +
-    '<p>' + worker.role + '</p>' ;
+    '<p>' + worker.role + '</p>';
 
  
  unassignedList.appendChild(workerCard);
 
+
+ 
+ const removeBtn = workerCard.querySelector(".remove-worker");
+
+ removeBtn.addEventListener("click", function (event) {
+
+    
+    event.stopPropagation();
+
+   
+    workers[workerCard.dataset.index].location = "unassigned";
+
+    
+    unassignedList.appendChild(workerCard);
+ });
+
+
+
+
+
+
+
+
  if (inputPhotoFile) {
     inputPhotoFile.value = "";
  }
+
+
 
  setPhotoPreview(inputPhoto ? inputPhoto.value.trim() : "");
 
 
  workerCard.addEventListener("click", function() {
     openProfile(workerCard.dataset.index);
-});
+ });
 
 });
 
@@ -276,6 +342,40 @@ btnsave.addEventListener("click", async function() {
 
 
 
+let simpleWorkers = [];
+let simpleCallback = null;
+
+function openSimpleModal(workers, callback) {
+    simpleWorkers = workers;
+    simpleCallback = callback;
+
+    const modal = document.getElementById("chooseWorkerModal");
+    const list = document.getElementById("simpleWorkerList");
+
+    if (!modal) {
+        console.error("❌ chooseWorkerModal not found in HTML");
+        return;
+    }
+
+    list.innerHTML = "";
+
+    workers.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "simple-list-item";
+        div.textContent = item.worker.name + " (" + item.worker.role + ")";
+        div.onclick = () => {
+            callback(index);
+            closeSimpleModal();
+        };
+        list.appendChild(div);
+    });
+
+    modal.style.display = "flex";
+}
+
+function closeSimpleModal() {
+    document.getElementById("chooseWorkerModal").style.display = "none";
+}
 
 
 
@@ -302,10 +402,10 @@ function chooseWorkerForZone(zoneElement, zoneName) {
         if (
     workers[i].location === "unassigned" &&
     canEnter(workers[i].role, zoneName)
-)
+ )
  {
     availableWorkers.push({ worker: workers[i], index: i });
-}
+ }
 
 
 
@@ -324,15 +424,94 @@ function chooseWorkerForZone(zoneElement, zoneName) {
         message += i + " - " + availableWorkers[i].worker.name + " (" + availableWorkers[i].worker.role + ")\n";
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
-    const choice = prompt(message);
+    // const choice = prompt(message);
 
-    const chosenIndex = Number(choice);
+    // const chosenIndex = Number(choice);
 
-    if (isNaN(chosenIndex) || chosenIndex < 0 || chosenIndex >= availableWorkers.length) {
-        alert("Invalid choice.");
+    // if (isNaN(chosenIndex) || chosenIndex < 0 || chosenIndex >= availableWorkers.length) {
+    //     alert("Invalid choice.");
+    //     return;
+    // }
+
+
+
+
+
+     openSimpleModal(availableWorkers, function(chosenIndex) {
+    const selected = availableWorkers[chosenIndex];
+
+    const card = unassignedList.querySelector('[data-index="' + selected.index + '"]');
+    if (!card) {
+        alert("Card not found!");
         return;
     }
+
+    const zoneStaff = zoneElement.querySelector(".zone-staff");
+
+    unassignedList.removeChild(card);
+    zoneStaff.appendChild(card);
+
+    workers[selected.index].location = zoneName;
+
+    card.addEventListener("click", function () {
+        openProfile(card.dataset.index);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const selected = availableWorkers[chosenIndex];  
 
@@ -347,27 +526,32 @@ function chooseWorkerForZone(zoneElement, zoneName) {
    
     const zoneStaff = zoneElement.querySelector(".zone-staff");
 
-    // unassignedList.removeChild(card);
-    // zoneStaff.appendChild(card);
+    unassignedList.removeChild(card);
+    zoneStaff.appendChild(card);
+
+
+
+    card.addEventListener("click", function () {
+    openProfile(card.dataset.index);
+     
+    });
 
     
-    // workers[selected.index].location = zoneName;
 
     
-const currentCount = zoneStaff.children.length;
+ const currentCount = zoneStaff.children.length;
 
 
-const limit = zoneLimits[zoneName];
+ const limit = zoneLimits[zoneName];
 
-if (currentCount >= limit) {
+ if (currentCount >= limit) {
     alert("This zone is full! Maximum allowed: " + limit);
     return;
-}
+ }
 
 
-unassignedList.removeChild(card);
-zoneStaff.appendChild(card);
-workers[selected.index].location = zoneName;
+ 
+ workers[selected.index].location = zoneName;
 
 }
 

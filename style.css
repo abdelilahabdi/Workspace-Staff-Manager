@@ -54,7 +54,7 @@ body {
 } */
 
 
-.unassigned-list {
+/* .unassigned-list {
     background: white;
     border-radius: 10px;
     min-height: 200px;
@@ -63,7 +63,50 @@ body {
     flex-direction: column;
     gap: 10px;
     overflow-y: auto;
+} */
+
+
+
+/* .unassigned-list {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 200px;
+    max-height: 60vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    overflow-y: auto;
+    border: 1px solid #ddd;
+} */
+
+
+/* .sidebar .worker-card {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    background: gray;
+    border-radius: 20px;
+    
+    
+} */
+
+
+.worker-card {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    background: gray;
+    border-radius: 8px;
+    /* display: flex;
+    align-items: center; */
+    gap: 10px;
+    position: relative;
 }
+
+
 
 
 .btn-add {
@@ -127,6 +170,10 @@ body {
   min-height: 80px;
   border-radius: 6px;
 } */
+
+
+
+
 
 
 
@@ -370,6 +417,74 @@ body {
 button:hover {
   opacity: 0.9;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.simple-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+}
+
+.simple-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 320px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.simple-list-item {
+  padding: 10px;
+  margin: 8px 0;
+  background: #f3f3f3;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.simple-list-item:hover {
+  background: #e6e6e6;
+}
+
+.close-simple-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background: #ccc;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
 
 
 
