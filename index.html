@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkSpace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="premier-header">
+        <h1>Workspace Staff Manager</h1>
+        <p>Gestionnaire de personnel</p>
+    </header>
+
+    <main class="premier-main">
+        <aside class="sidebar">
+            <h2>Unassigned Staff</h2>
+            <div class="unassigned-list"></div>
+            <button class="btn-add">Add New Worker</button>
+        </aside>
+
+        <div class="zones-container">
+            <h2 class="zones-heading">Workspace Map</h2>
+
+            <div class="zones-grid">
+                <div class="zone zone-conference" data-zone="conference">
+                    <h3>Salle de conférence</h3>
+                    <button class="zone-add-btn">+</button>
+                    <div class="zone-staff"></div>
+                </div>
+
+                <div class="zone zone-reception" data-zone="reception">
+                    <h3>Réception</h3>
+                    <button class="zone-add-btn">+</button>
+                    <div class="zone-staff"></div>
+                </div>
+
+                <div class="zone zone-servers" data-zone="serveurs">
+                    <h3>Salle des serveurs</h3>
+                    <button class="zone-add-btn">+</button>
+                    <div class="zone-staff"></div>
+                </div>
+
+                <div class="zone zone-security" data-zone="security">
+                    <h3>Salle de sécurité</h3>
+                    <button class="zone-add-btn">+</button>
+                    <div class="zone-staff"></div>
+                </div>
+
+                <div class="zone zone-personnel" data-zone="personnel">
+                    <h3>Salle du personnel</h3>
+                    <button class="zone-add-btn">+</button>
+                    <div class="zone-staff"></div>
+                </div>
+
+                <div class="zone zone-archives" data-zone="archives">
+                    <h3>Salle d'archives</h3>
+                    <button class="zone-add-btn">+</button>
+                    <div class="zone-staff"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay add-worker-overlay">
+        <div class="modal-box add-worker-box">
+            <button class="modal-close">X</button>
+            <h2>Add New Worker</h2>
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="input-name">
+            </div>
+
+            <div class="form-group">
+                <label>Role</label>
+                <select class="input-role">
+                    <option value="">Sélectionnez un rôle</option>
+                    <option value="Réception">Réception</option>
+                    <option value="Techniciens IT">Techniciens IT</option>
+                    <option value="Agents de sécurité">Agents de sécurité</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Nettoyage">Nettoyage</option>
+                    <option value="Autres rôles">Autres rôles</option>
+                </select>
+            </div>
+
+            <!-- <div class="form-group">
+                <label>Photo URL</label>
+                <input type="text" class="input-photo">
+            </div> -->
+
+            <div class="form-group">
+                <label>Choose Photo</label>
+                <input type="file" class="input-photo-file" accept="image/*">
+            </div>
+
+            <div class="form-group photo-preview">
+                <label>Preview</label>
+                <div class="photo-preview-frame">
+                    <img class="photo-preview-img" alt="Selected photo preview">
+                    <span class="photo-preview-placeholder">No photo selected</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="input-email">
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" class="input-phone">
+            </div>
+
+            <div class="form-group experience-group">
+                <label>Experience</label>
+                <div class="experience-list"></div>
+            </div>
+
+
+
+            <button class="btn-add-experience">Add Experience</button>
+            <button class="btn-save-worker">Save</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay profile-overlay">
+        <div class="modal-box profile-box">
+            <button class="modal-close">X</button>
+            <h2>Employee Profile</h2>
+            <img class="profile-photo">
+
+            <div class="profile-field">
+                <h3>Name:</h3>
+                <p class="profile-name"></p>
+            </div>
+
+            <div class="profile-field">
+                <h3>Role:</h3>
+                <p class="profile-role"></p>
+            </div>
+
+            <div class="profile-field">
+                <h3>Email:</h3>
+                <p class="profile-email"></p>
+            </div>
+
+            <div class="profile-field">
+                <h3>Phone:</h3>
+                <p class="profile-phone"></p>
+            </div>
+
+            <div class="profile-field">
+                <h3>Experiences:</h3>
+                <ul class="profile-experiences"></ul>
+            </div>
+
+            <div class="profile-field">
+                <h3>Current Location:</h3>
+                <p class="profile-location"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
