@@ -189,12 +189,23 @@ function createWorkerCard(worker, index) {
   `;
 
 
-  const removeBtn = card.querySelector(".remove-worker");
-  removeBtn.addEventListener("click", function (event) {
-    event.stopPropagation();
-    workers[index].location = "unassigned";
-    unassignedList.appendChild(card);
-  });
+
+
+
+
+   const removeBtn = card.querySelector(".remove-worker");
+removeBtn.addEventListener("click", function (event) {
+  event.stopPropagation();
+
+  const oldLocation = workers[index].location; // فين كان خدام
+  workers[index].location = "unassigned";
+  unassignedList.appendChild(card);
+
+  if (oldLocation && oldLocation !== "unassigned") {
+    updateZoneCounter(oldLocation);
+  }
+});
+
 
  
   card.addEventListener("click", function () {
@@ -290,6 +301,39 @@ const zoneLimits = {
   archives: 3,
 };
 
+
+
+//zone
+
+
+function updateZoneCounter(zoneName) {
+  const zone = document.querySelector(`.zone[data-zone="${zoneName}"]`);
+  if (!zone) return;
+
+  const staffContainer = zone.querySelector(".zone-staff");
+  const count = staffContainer ? staffContainer.children.length : 0;
+  const limit = zoneLimits[zoneName] ?? 0;
+
+  const badge = document.querySelector(`.zone-counter[data-zone="${zoneName}"]`);
+  if (badge) {
+    badge.textContent = `${count}/${limit}`;
+  }
+}
+
+
+
+
+Object.keys(zoneLimits).forEach(updateZoneCounter);
+
+
+
+
+
+
+
+
+
+
 function canEnter(role, zone) {
   
   role = role.trim().toLowerCase();
@@ -369,23 +413,6 @@ zoneButtons.forEach((btn) => {
       return;
     }
 
-    // let message = "Choisissez un employé pour la zone: " + zoneName + "\n\n";
-    // available.forEach((obj, i) => {
-    //   message += i + " - " + obj.worker.name + " (" + obj.worker.role + ")\n";
-    // });
-
-    // const choice = prompt(message);
-    // if (choice === null) return;
-
-    // const chosenIndex = Number(choice);
-    // if (
-    //   isNaN(chosenIndex) ||
-    //   chosenIndex < 0 ||
-    //   chosenIndex >= available.length
-    // ) {
-    //   alert("Choix invalide.");
-    //   return;
-    // }
 
 
 
@@ -411,34 +438,20 @@ zoneButtons.forEach((btn) => {
   unassignedList.removeChild(card);
   zoneStaff.appendChild(card);
   workers[selected.index].location = zoneName;
+
+
+  
+  updateZoneCounter(zoneName);
 });
 
 
-
-
-
-    const selected = available[chosenIndex];
-    const card = unassignedList.querySelector(
-      '[data-index="' + selected.index + '"]'
-    );
-    if (!card) {
-      alert("Carte introuvable.");
-      return;
-    }
-
-    const zoneStaff = zoneElement.querySelector(".zone-staff");
-
-    const currentCount = zoneStaff.children.length;
-    const limit = zoneLimits[zoneName] ?? Infinity;
-
-    if (currentCount >= limit) {
-      alert("Cette zone est pleine. Limite: " + limit);
-      return;
-    }
-
-    
-    unassignedList.removeChild(card);
-    zoneStaff.appendChild(card);
-    workers[selected.index].location = zoneName;
   });
+
 });
+
+
+
+
+
+
+

@@ -243,11 +243,33 @@ body {
 }
 
 
+/* .zone h3{
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: larger;
+} */
+
+
 .zone h3{
   color: white;
   font-family: 'Courier New', Courier, monospace;
   font-size: larger;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+
+
+.zone-counter {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.8);
+  background: #2ecc71;
+  color: #fff;
+}
+
 
 .modal-overlay {
   position: fixed;
