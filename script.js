@@ -282,12 +282,12 @@ function openProfile(index) {
 
 
 const zoneLimits = {
-  conference: Infinity,
-  reception: 1,
-  serveurs: 2,
-  security: 1,
-  personnel: Infinity,
-  archives: 1,
+  conference: 10,
+  reception: 3,
+  serveurs: 4,
+  security: 2,
+  personnel: 15,
+  archives: 3,
 };
 
 function canEnter(role, zone) {
@@ -316,7 +316,7 @@ function canEnter(role, zone) {
 
 
 
-//fff
+
 
 function openSimpleModal(list, callback) {
   const modal = document.getElementById("chooseWorkerModal");
