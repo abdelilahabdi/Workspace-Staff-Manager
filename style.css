@@ -485,6 +485,12 @@ button:hover {
 
 
 
+.error {
+    color: red;
+    font-size: 12px;
+    height: 14px;
+    margin-top: 2px;
+}
 
 
 
