@@ -181,7 +181,7 @@ body {
 .zone-conference {
   
     width: 100%;
-    height: 400px; /* n9der nbdelha */
+    min-height: 400px; /* n9der nbdelha */
     background-image: url("image/sora6.jpg"); /* hna n7et lien dyal tswira */
     background-size: cover; /*  tswira bach n3mer div */
     background-position: center; 
@@ -192,7 +192,7 @@ body {
 
 .zone-reception {
     width: 100%;
-    height: 400px; /* n9der nbdelha */
+    min-height: 400px; /* n9der nbdelha */
     background-image: url("image/sora5.jpg"); /* hna n77et lien dyal tswira */
     background-size: cover; /*  tswira bach ne3mer divv */
     background-position: center; 
@@ -203,7 +203,7 @@ body {
 
 .zone-servers {
    width: 100%;
-    height: 400px; /* n9der nbedelha */
+    min-height: 400px; /* n9der nbedelha */
     background-image: url("image/sora2.jpg"); /* hna n7et lien dyal tswira */
     background-size: cover; /*  tswira bach n3mer div */
     background-position: center; 
@@ -213,7 +213,7 @@ body {
 
 .zone-security {
    width: 100%;
-    height: 400px; /* n9der nbdelha */
+    min-height: 400px; /* n9der nbdelha */
     background-image: url("image/sora1.jpg"); /* hna n7et lien dyal tswira */
     background-size: cover; /*  tswira bach n3mer div */
     background-position: center; 
@@ -223,7 +223,7 @@ body {
 
 .zone-personnel {
   width: 100%;
-    height: 400px; /* n9der nbdelha */
+    min-height: 400px; /* n9der nbdelha */
     background-image: url("image/sora4.jpg"); /* hna n7et lien dyal tswira */
     background-size: cover; /*  tswira bach n3mer div */
     background-position: center; 
@@ -235,7 +235,7 @@ body {
    
 
    width: 100%;
-    height: 400px; /* n9der nbdelha */
+    min-height: 400px; /* n9der nbdelha */
     background-image: url("image/sora3.jpg"); /* hna n7et lien dyal tswira */
     background-size: cover; /*  tswira bach n3mer div */
     background-position: center; 
