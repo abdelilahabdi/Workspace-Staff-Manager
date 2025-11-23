@@ -47,51 +47,7 @@ body {
   border-radius: 20px;
 }
 
-/* .unassigned-list {
-  background: white;
-  height: 200px;
-  border-radius: 10px;
-} */
 
-
-/* .unassigned-list {
-    background: white;
-    border-radius: 10px;
-    min-height: 200px;
-    padding: 80px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: auto;
-} */
-
-
-
-/* .unassigned-list {
-    background: #ffffff;
-    padding: 15px;
-    border-radius: 10px;
-    min-height: 200px;
-    max-height: 60vh;
-
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    overflow-y: auto;
-    border: 1px solid #ddd;
-} */
-
-
-/* .sidebar .worker-card {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #bbb;
-    background: gray;
-    border-radius: 20px;
-    
-    
-} */
 
 
 .worker-card {
@@ -166,17 +122,6 @@ body {
   cursor: pointer;
 }
 
-/* .zone-staff {
-  background: gray;
-  min-height: 80px;
-  border-radius: 6px;
-} */
-
-
-
-
-
-
 
 
 .zone-conference {
@@ -243,12 +188,6 @@ body {
   
 }
 
-
-/* .zone h3{
-  color: white;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: larger;
-} */
 
 
 .zone h3{
@@ -410,12 +349,7 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
-/* 
-.profile-photo {
-  width: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-} */
+
 
 
 .profile-photo {
@@ -451,22 +385,6 @@ body {
 button:hover {
   opacity: 0.9;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .simple-modal {
@@ -512,25 +430,12 @@ button:hover {
   cursor: pointer;
 }
 
-
-
-
-
-
-
-
 .error {
     color: red;
     font-size: 12px;
     height: 14px;
     margin-top: 2px;
 }
-
-
-
-
-
-
 
 
 

@@ -20,14 +20,7 @@ const errEmail = document.querySelector(".email-error");
 const errPhone = document.querySelector(".phone-error");
 
 
-
 const closeButtons = document.querySelectorAll(".modal-close");
-
-
-
-
-
-
 
 
 const zoneButtons = document.querySelectorAll(".zone-add-btn");
@@ -41,9 +34,17 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phoneRegex = /^(?:\+212|0)([ \-]?\d){9}$/;
 
 
+
+
+
+
 btnAdd.addEventListener("click", () => {
   addWorkerOverlay.classList.add("active");
 });
+
+
+
+
 
 closeButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -52,6 +53,9 @@ closeButtons.forEach((btn) => {
       .forEach((o) => o.classList.remove("active"));
   });
 });
+
+
+
 
 
 function setPhotoPreview(src) {
@@ -65,6 +69,10 @@ function setPhotoPreview(src) {
     photoFrame.classList.remove("has-image");
   }
 }
+
+
+
+
 
 if (inputPhotoFile) {
   inputPhotoFile.addEventListener("change", function () {
@@ -80,6 +88,9 @@ if (inputPhotoFile) {
     reader.readAsDataURL(file);
   });
 }
+
+
+
 
 
 function createExperienceRow() {
@@ -107,12 +118,21 @@ function createExperienceRow() {
 }
 
 
+
+
+
 experienceList.appendChild(createExperienceRow());
+
+
+
 
 
 btnAddExperience.addEventListener("click", function () {
   experienceList.appendChild(createExperienceRow());
 });
+
+
+
 
 
 inputName.addEventListener("input", function () {
@@ -122,12 +142,20 @@ inputName.addEventListener("input", function () {
     : "Nom invalide (min 2 lettres)";
 });
 
+
+
+
+
 inputEmail.addEventListener("input", function () {
   if (!errEmail) return;
   errEmail.textContent = emailRegex.test(inputEmail.value)
     ? ""
     : "Email invalide";
 });
+
+
+
+
 
 inputPhone.addEventListener("input", function () {
   if (!errPhone) return;
@@ -137,10 +165,12 @@ inputPhone.addEventListener("input", function () {
 });
 
 
+
+
+
 function validateForm() {
   let isValid = true;
 
-  
   if (!nameRegex.test(inputName.value.trim())) {
     if (errName) errName.textContent = "Nom invalide";
     isValid = false;
@@ -181,6 +211,9 @@ function validateForm() {
 }
 
 
+
+
+
 function createWorkerCard(worker, index) {
   const card = document.createElement("div");
   card.classList.add("worker-card");
@@ -195,11 +228,8 @@ function createWorkerCard(worker, index) {
 
 
 
-
-
-
    const removeBtn = card.querySelector(".remove-worker");
-removeBtn.addEventListener("click", function (event) {
+   removeBtn.addEventListener("click", function (event) {
   event.stopPropagation();
 
   const oldLocation = workers[index].location; // فين كان خدام
@@ -219,7 +249,6 @@ removeBtn.addEventListener("click", function (event) {
 
   unassignedList.appendChild(card);
 }
-
 
 
 
@@ -290,9 +319,6 @@ btnSave.addEventListener("click", function () {
 
 
 
-
-
-
 function openProfile(index) {
   const worker = workers[index];
   const overlay = document.querySelector(".profile-overlay");
@@ -318,6 +344,9 @@ function openProfile(index) {
 }
 
 
+
+
+
 const zoneLimits = {
   conference: 10,
   reception: 3,
@@ -329,9 +358,9 @@ const zoneLimits = {
 
 
 
+
+
 //zone
-
-
 function updateZoneCounter(zoneName) {
   const zone = document.querySelector(`.zone[data-zone="${zoneName}"]`);
   if (!zone) return;
@@ -349,12 +378,8 @@ function updateZoneCounter(zoneName) {
 
 
 
+
 Object.keys(zoneLimits).forEach(updateZoneCounter);
-
-
-
-
-
 
 
 
@@ -383,11 +408,6 @@ function canEnter(role, zone) {
 
 
 
-
-
-
-
-
 function openSimpleModal(list, callback) {
   const modal = document.getElementById("chooseWorkerModal");
   const container = document.getElementById("simpleWorkerList");
@@ -408,14 +428,13 @@ function openSimpleModal(list, callback) {
   modal.style.display = "flex";
 }
 
+
+
+
+
 function closeSimpleModal() {
   document.getElementById("chooseWorkerModal").style.display = "none";
 }
-
-
-
-
-
 
 
 
@@ -438,9 +457,6 @@ zoneButtons.forEach((btn) => {
       alert("Aucun employé autorisé pour cette zone.");
       return;
     }
-
-
-
 
 
     openSimpleModal(available, function(chosenIndex) {
@@ -474,10 +490,5 @@ zoneButtons.forEach((btn) => {
   });
 
 });
-
-
-
-
-
 
 
