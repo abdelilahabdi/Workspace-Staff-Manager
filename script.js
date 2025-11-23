@@ -89,7 +89,12 @@ function createExperienceRow() {
   row.innerHTML = `
       <input type="text" class="exp-company" placeholder="Entreprise">
       <input type="text" class="exp-role" placeholder="Poste">
-      <input type="date" class="exp-duration">
+
+
+      <input type="date" class="exp-start" placeholder="Date début">
+      <input type="date" class="exp-end" placeholder="Date fin">
+
+      
       <button type="button" class="btn-delete-experience">Delete</button>
   `;
 
@@ -244,10 +249,15 @@ btnSave.addEventListener("click", function () {
     rows.forEach((row) => {
       const c = row.querySelector(".exp-company").value.trim();
       const r = row.querySelector(".exp-role").value.trim();
-      const d = row.querySelector(".exp-duration").value.trim();
 
-      if (c || r || d) {
-        worker.experiences.push(`${c} | ${r} | ${d}`);
+
+    //   const d = row.querySelector(".exp-duration").value.trim();
+
+     const d1 = row.querySelector(".exp-start").value;
+     const d2 = row.querySelector(".exp-end").value;
+
+      if (c || r || d1 || d2) {
+        worker.experiences.push(`${c} | ${r} | ${d1} → ${d2}`);
       }
     });
 
