@@ -89,7 +89,7 @@ function createExperienceRow() {
   row.innerHTML = `
       <input type="text" class="exp-company" placeholder="Entreprise">
       <input type="text" class="exp-role" placeholder="Poste">
-      <input type="text" class="exp-duration" placeholder="Durée">
+      <input type="date" class="exp-duration">
       <button type="button" class="btn-delete-experience">Delete</button>
   `;
 
