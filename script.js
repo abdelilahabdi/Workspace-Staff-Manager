@@ -30,7 +30,7 @@ let workers = [];
 
 
 
-const nameRegex = /^[\p{L}\s]{2,}$/u;
+const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phoneRegex = /^(?:\+212|0)([ \-]?\d){9}$/;
 
@@ -330,7 +330,7 @@ btnSave.addEventListener("click", function () {
     }
 
     
-    if (!experiencesisValid) return;
+    if (!experiencesValid) return;
 
    
     workers.push(worker);
