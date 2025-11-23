@@ -29,32 +29,10 @@ const zoneButtons = document.querySelectorAll(".zone-add-btn");
 let workers = [];
 
 
-const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,}$/;
+
+const nameRegex = /^[\p{L}\s]{2,}$/u;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phoneRegex = /^(?:\+212|0)([ \-]?\d){9}$/;
-
-
-
-
-
-
-btnAdd.addEventListener("click", () => {
-  addWorkerOverlay.classList.add("active");
-});
-
-
-
-
-
-closeButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    document
-      .querySelectorAll(".modal-overlay")
-      .forEach((o) => o.classList.remove("active"));
-  });
-});
-
-
 
 
 
@@ -68,25 +46,6 @@ function setPhotoPreview(src) {
     photoImg.src = "";
     photoFrame.classList.remove("has-image");
   }
-}
-
-
-
-
-
-if (inputPhotoFile) {
-  inputPhotoFile.addEventListener("change", function () {
-    const file = inputPhotoFile.files[0];
-    if (!file) {
-      setPhotoPreview("");
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = function () {
-      setPhotoPreview(reader.result);
-    };
-    reader.readAsDataURL(file);
-  });
 }
 
 
@@ -119,51 +78,117 @@ function createExperienceRow() {
 
 
 
+       
+function resetWorkerForm() {
+  if (!inputName || !inputRole || !inputEmail || !inputPhone) return;
 
+  inputName.value = "";
+  inputRole.value = "";
+  inputEmail.value = "";
+  inputPhone.value = "";
+
+  if (inputPhotoFile) {
+    inputPhotoFile.value = "";
+  }
+  setPhotoPreview("");
+
+  if (experienceList) {
+    experienceList.innerHTML = "";
+    experienceList.appendChild(createExperienceRow());
+  }
+
+  if (errName) errName.textContent = "";
+  if (errEmail) errEmail.textContent = "";
+  if (errPhone) errPhone.textContent = "";
+}
+
+
+
+
+
+if (btnAdd && addWorkerOverlay) {
+  btnAdd.addEventListener("click", () => {
+    addWorkerOverlay.classList.add("active");
+  });
+}
+
+closeButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document
+      .querySelectorAll(".modal-overlay")
+      .forEach((o) => o.classList.remove("active"));
+  });
+});
+
+
+
+
+if (inputPhotoFile) {
+  inputPhotoFile.addEventListener("change", function () {
+    const file = inputPhotoFile.files[0];
+    if (!file) {
+      setPhotoPreview("");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function () {
+      setPhotoPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+
+
+
+
+
+
+if (experienceList) {
 
 experienceList.appendChild(createExperienceRow());
 
+}
 
-
-
+if (btnAddExperience && experienceList) {
 
 btnAddExperience.addEventListener("click", function () {
   experienceList.appendChild(createExperienceRow());
 });
+}
 
 
 
-
-
+if (inputName) {
 inputName.addEventListener("input", function () {
   if (!errName) return;
-  errName.textContent = nameRegex.test(inputName.value)
+  errName.textContent = nameRegex.test(inputName.value.trim())
     ? ""
     : "Nom invalide (min 2 lettres)";
 });
+}
 
 
 
-
-
+if (inputEmail) {
 inputEmail.addEventListener("input", function () {
   if (!errEmail) return;
-  errEmail.textContent = emailRegex.test(inputEmail.value)
+  errEmail.textContent = emailRegex.test(inputEmail.value.trim())
     ? ""
     : "Email invalide";
 });
+}
 
 
 
-
-
+if (inputPhone) {
 inputPhone.addEventListener("input", function () {
   if (!errPhone) return;
-  errPhone.textContent = phoneRegex.test(inputPhone.value)
+  errPhone.textContent = phoneRegex.test(inputPhone.value.trim())
     ? ""
     : "Numéro invalide (+212 ou 0...)";
 });
-
+}
 
 
 
@@ -213,7 +238,6 @@ function validateForm() {
 
 
 
-
 function createWorkerCard(worker, index) {
   const card = document.createElement("div");
   card.classList.add("worker-card");
@@ -232,7 +256,7 @@ function createWorkerCard(worker, index) {
    removeBtn.addEventListener("click", function (event) {
   event.stopPropagation();
 
-  const oldLocation = workers[index].location; // فين كان خدام
+  const oldLocation = workers[index].location; // fin kan khedam
   workers[index].location = "unassigned";
   unassignedList.appendChild(card);
 
@@ -252,7 +276,7 @@ function createWorkerCard(worker, index) {
 
 
 
-
+if (btnSave) {
 
 btnSave.addEventListener("click", function () {
 
@@ -278,9 +302,12 @@ btnSave.addEventListener("click", function () {
 
       
     const rows = document.querySelectorAll(".experience-row");
-    let isValid = true;
+    let experiencesValid = true;
+    
 
-    rows.forEach((row) => {
+    
+
+        for (const row of rows) {
       const c = row.querySelector(".exp-company").value.trim();
       const r = row.querySelector(".exp-role").value.trim();
 
@@ -290,32 +317,37 @@ btnSave.addEventListener("click", function () {
            
       if (d1 && d2 && new Date(d1) >= new Date(d2)) {
         alert(" La date de début doit venir avant la date de fin !");
-        isValid = false;
-        return;
+        experiencesValid = false;
+    
+        break;
+        
       }
 
       
       if (c || r || d1 || d2) {
         worker.experiences.push(`${c} | ${r} | ${d1} → ${d2}`);
       }
-    });
+    }
 
     
-    if (!isValid) return;
+    if (!experiencesisValid) return;
 
    
     workers.push(worker);
     const index = workers.length - 1;
     createWorkerCard(worker, index);
 
-    inputPhotoFile.value = "";
-    setPhotoPreview("");
-  };
+
+
+   resetWorkerForm();
+      addWorkerOverlay.classList.remove("active");
+    };
+
 
   reader.readAsDataURL(file);
 });
 
-
+}
 
 
 
@@ -342,8 +374,6 @@ function openProfile(index) {
 
   overlay.classList.add("active");
 }
-
-
 
 
 
@@ -386,17 +416,25 @@ Object.keys(zoneLimits).forEach(updateZoneCounter);
 
 
 function canEnter(role, zone) {
-  
-  role = role.trim().toLowerCase();
-  zone = zone.trim().toLowerCase();
+   if (!role || !zone) return false;
+
+
+   role = role.trim().toLowerCase();
+   zone = zone.trim().toLowerCase();
+
+
+   if (role === "manager") return true;
+
+   if (role === "nettoyage") {
+    return zone !== "archives";
+  }
+
 
   if (zone === "reception") return role === "réception";
   if (zone === "serveurs") return role === "techniciens it";
   if (zone === "security") return role === "agents de sécurité";
 
-  if (role === "manager") return true;
 
-  if (role === "nettoyage") return zone !== "archives";
 
   if (["reception", "serveurs", "security"].includes(zone)) return false;
 
@@ -417,7 +455,7 @@ function openSimpleModal(list, callback) {
   list.forEach((item, i) => {
     const div = document.createElement("div");
     div.className = "simple-list-item";
-    div.textContent = item.worker.name + " (" + item.worker.role + ")";
+    div.textContent = `${item.worker.name} (${item.worker.role})`;
     div.onclick = () => {
       callback(i);
       closeSimpleModal();
@@ -433,7 +471,10 @@ function openSimpleModal(list, callback) {
 
 
 function closeSimpleModal() {
-  document.getElementById("chooseWorkerModal").style.display = "none";
+ const modal = document.getElementById("chooseWorkerModal");
+  if (modal) {
+  modal.style.display = "none";
+}
 }
 
 
@@ -443,6 +484,8 @@ function closeSimpleModal() {
 zoneButtons.forEach((btn) => {
   btn.addEventListener("click", function () {
     const zoneElement = btn.closest(".zone");
+    if (!zoneElement) return;
+
     const zoneName = zoneElement.dataset.zone; 
 
    
@@ -484,11 +527,6 @@ zoneButtons.forEach((btn) => {
 
   
   updateZoneCounter(zoneName);
-});
-
-
+    });
   });
-
 });
-
-
