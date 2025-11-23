@@ -94,7 +94,7 @@ function createExperienceRow() {
       <input type="date" class="exp-start" placeholder="Date début">
       <input type="date" class="exp-end" placeholder="Date fin">
 
-      
+
       <button type="button" class="btn-delete-experience">Delete</button>
   `;
 
@@ -221,19 +221,22 @@ removeBtn.addEventListener("click", function (event) {
 }
 
 
+
+
+
+
 btnSave.addEventListener("click", function () {
-  
+
+      
   const ok = validateForm();
   if (!ok) return;
 
-  
   const file = inputPhotoFile.files[0];
   const reader = new FileReader();
 
   reader.onload = function () {
     const photoValue = reader.result;
 
-    
     const worker = {
       name: inputName.value.trim(),
       role: inputRole.value,
@@ -244,30 +247,37 @@ btnSave.addEventListener("click", function () {
       location: "unassigned",
     };
 
-    
+      
     const rows = document.querySelectorAll(".experience-row");
+    let isValid = true;
+
     rows.forEach((row) => {
       const c = row.querySelector(".exp-company").value.trim();
       const r = row.querySelector(".exp-role").value.trim();
 
+      const d1 = row.querySelector(".exp-start").value;
+      const d2 = row.querySelector(".exp-end").value;
 
-    //   const d = row.querySelector(".exp-duration").value.trim();
+           
+      if (d1 && d2 && new Date(d1) >= new Date(d2)) {
+        alert(" La date de début doit venir avant la date de fin !");
+        isValid = false;
+        return;
+      }
 
-     const d1 = row.querySelector(".exp-start").value;
-     const d2 = row.querySelector(".exp-end").value;
-
+      
       if (c || r || d1 || d2) {
         worker.experiences.push(`${c} | ${r} | ${d1} → ${d2}`);
       }
     });
 
     
+    if (!isValid) return;
+
+   
     workers.push(worker);
     const index = workers.length - 1;
-
-    
     createWorkerCard(worker, index);
-
 
     inputPhotoFile.value = "";
     setPhotoPreview("");
@@ -275,6 +285,12 @@ btnSave.addEventListener("click", function () {
 
   reader.readAsDataURL(file);
 });
+
+
+
+
+
+
 
 
 function openProfile(index) {
