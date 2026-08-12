@@ -26,8 +26,12 @@ const closeButtons = document.querySelectorAll(".modal-close");
 const zoneButtons = document.querySelectorAll(".zone-add-btn");
 
 
-let workers = [];
+ let workers = [];
 
+
+
+
+ 
 
 
 const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,}$/;
@@ -36,7 +40,7 @@ const phoneRegex = /^(?:\+212|0)([ \-]?\d){9}$/;
 
 
 
-function setPhotoPreview(src) {
+function setPhotoPreview(src) {  // afficher et masquer preview dyal photo
   if (!photoImg || !photoFrame) return;
 
   if (src) {
@@ -52,7 +56,7 @@ function setPhotoPreview(src) {
 
 
 
-function createExperienceRow() {
+function createExperienceRow() {   // add new line dyal exprience ( company + roles + dates) et ajouter button delete 
   const row = document.createElement("div");
   row.classList.add("experience-row");
 
@@ -79,7 +83,7 @@ function createExperienceRow() {
 
 
        
-function resetWorkerForm() {
+function resetWorkerForm() {   // apres save katreje3 form khawya 
   if (!inputName || !inputRole || !inputEmail || !inputPhone) return;
 
   inputName.value = "";
@@ -94,7 +98,7 @@ function resetWorkerForm() {
 
   if (experienceList) {
     experienceList.innerHTML = "";
-    experienceList.appendChild(createExperienceRow());
+    experienceList.appendChild(createExperienceRow());  
   }
 
   if (errName) errName.textContent = "";
@@ -162,7 +166,7 @@ btnAddExperience.addEventListener("click", function () {
 if (inputName) {
 inputName.addEventListener("input", function () {
   if (!errName) return;
-  errName.textContent = nameRegex.test(inputName.value.trim())
+  errName.textContent = nameRegex.test(inputName.value.trim()) 
     ? ""
     : "Nom invalide (min 2 lettres)";
 });
@@ -193,7 +197,7 @@ inputPhone.addEventListener("input", function () {
 
 
 
-function validateForm() {
+function validateForm() {   // cheaker jami3 7o9ol avant ajouter worker name role email tele photo
   let isValid = true;
 
   if (!nameRegex.test(inputName.value.trim())) {
@@ -238,7 +242,7 @@ function validateForm() {
 
 
 
-function createWorkerCard(worker, index) {
+function createWorkerCard(worker, index) {    // tsayeb cart dtal worker f sidebar unssigned
   const card = document.createElement("div");
   card.classList.add("worker-card");
   card.dataset.index = index;
@@ -351,7 +355,7 @@ btnSave.addEventListener("click", function () {
 
 
 
-function openProfile(index) {
+function openProfile(index) {    // kayfte7 profile w afficher information worker kamla 
   const worker = workers[index];
   const overlay = document.querySelector(".profile-overlay");
 
@@ -391,7 +395,7 @@ const zoneLimits = {
 
 
 //zone
-function updateZoneCounter(zoneName) {
+function updateZoneCounter(zoneName) {     // update counteur dyal chaque zone ( che7al fiha daba w l7ed l2a9sa max)
   const zone = document.querySelector(`.zone[data-zone="${zoneName}"]`);
   if (!zone) return;
 
@@ -415,7 +419,7 @@ Object.keys(zoneLimits).forEach(updateZoneCounter);
 
 
 
-function canEnter(role, zone) {
+function canEnter(role, zone) {     //separer worker f place specifique dyalhum
    if (!role || !zone) return false;
 
 
@@ -446,7 +450,7 @@ function canEnter(role, zone) {
 
 
 
-function openSimpleModal(list, callback) {
+function openSimpleModal(list, callback) {   
   const modal = document.getElementById("chooseWorkerModal");
   const container = document.getElementById("simpleWorkerList");
 
